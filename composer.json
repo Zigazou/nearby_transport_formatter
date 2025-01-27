@@ -1,7 +1,7 @@
 {
     "name": "drupal/nearby_transport_formatter",
     "description": "Finds the nearest transport facilities around GPS coordinates",
-    "type": "drupal-module",
+    "type": "drupal-custom-module",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
