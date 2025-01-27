@@ -1,0 +1,8 @@
+{% for route in routes %}
+	{{ route.name }}
+	{% if route.school %}
+		(scolaire)
+	{% endif %}
+	{% if not loop.last %},
+	{% endif %}
+{% endfor %}

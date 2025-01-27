@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Defines a simple string formatter.
+ */
+
+use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function nearby_transport_formatter_field_formatter_info_alter(&$info) {
+  $info['string']['field_types'][] = 'geofield';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function nearby_transport_formatter_theme($existing, $type, $theme, $path) {
+  return [
+    'nearby_stations' => [
+      'variables' => [
+        'lat' => NULL,
+        'lon' => NULL,
+        'near_points' => [],
+        'max_distance' => 500,
+      ],
+    ],
+    'nearby_routes' => [
+      'variables' => [
+        'routes' => [],
+      ],
+    ],
+  ];
+}

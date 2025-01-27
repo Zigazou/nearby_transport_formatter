@@ -1,0 +1,7 @@
+field.formatter.settings.nearby_stations:
+  type: mapping
+  label: 'Nearby stations maximum distance'
+  mapping:
+    max_distance:
+      type: integer
+      label: 'Maximum distance in meters'

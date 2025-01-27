@@ -1,0 +1,25 @@
+# French translation of City GPS formatter (1.0)
+# Copyright (c) 2023 by Frédéric BISSON
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: City GPS formatter (1.0)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+msgid "Defines some formatters for GeoField coordinates."
+msgstr "Définit des formateurs pour les coordonnées GeoField."
+
+msgid "Less than @max_distance metres away:"
+msgstr "À moins de @max_distance mètres :"
+
+msgid "Routes @routes (station @stop)"
+msgstr "Lignes @routes (arrêt @stop)"
+
+msgid "Maximum distance in meters"
+msgstr "Distance maximum en mètres"
+
+msgid "Near stations"
+msgstr "Arrêts les plus proches"

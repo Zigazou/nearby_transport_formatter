@@ -1,0 +1,9 @@
+name: 'Nearby transport formatter'
+type: module
+description: 'Finds the nearest transport facilities around GPS coordinates'
+package: Fields
+core_version_requirement: ^10 || ^11
+version: "1.0"
+dependencies:
+  - drupal:field
+  - drupal:geofield

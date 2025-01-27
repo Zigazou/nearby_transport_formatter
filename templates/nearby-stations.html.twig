@@ -1,0 +1,6 @@
+<p>{{ 'Less than @max_distance metres away:'|t({'@max_distance': max_distance}) }}</p>
+<ul>
+	{% for stop, routes in near_points %}
+		<li>{{ 'Routes @routes (station @stop)'|t({'@routes': routes|render, '@stop': stop}) }}</li>
+	{% endfor %}
+</ul>
