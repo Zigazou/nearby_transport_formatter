@@ -319,42 +319,45 @@ final class NearbyStationsFormatter extends FormatterBase implements ContainerFa
     $bikeLocks = [];
     $maxDistance = ((integer) $this->getSetting('max_distance')) / 5;
     foreach ($cycleStops as $category => $stopsItem) {
-      if (in_array($category, $bikeLockCategories, TRUE)) {
-        foreach ($stopsItem as $station => $bikeLock) {
-          if (empty($bikeLock['points'])) {
+      if (!in_array($category, $bikeLockCategories, TRUE)) {
+        continue;
+      }
+
+      foreach ($stopsItem as $station => $bikeLock) {
+        if (empty($bikeLock['points'])) {
+          continue;
+        }
+
+        $points = [];
+        $category_name = Categories::CATEGORIES[$category][1];
+        foreach ($bikeLock['points'] as $point) {
+          if ($point['distance'] > $maxDistance) {
             continue;
           }
 
-          if (!isset($bikeLocks[$category])) {
-            $bikeLocks[$category] = [];
-          }
-
-          $points = [];
-          $category_name = Categories::CATEGORIES[$category][1];
-          foreach ($bikeLock['points'] as $point) {
-            if ($point['distance'] > $maxDistance) {
-              continue;
-            }
-            $points[] = [
-              '#theme' => 'nearby_lock',
-              '#category_name' => $category_name,
-              '#distance' => $point['distance'],
-              '#direction' => Directions::toHuman($point['direction']),
-              '#lat' => $point['lat'],
-              '#lon' => $point['lon'],
-              '#capacity' => $point['capacity'],
-            ];
-          }
-
-          usort($points, function ($a, $b) {
-            return $a['#distance'] <=> $b['#distance'];
-          });
-
-          $bikeLocks[$category] = [
-            '#theme' => 'nearby_locks',
-            '#locks' => $points,
+          $points[] = [
+            '#theme' => 'nearby_lock',
+            '#category_name' => $category_name,
+            '#distance' => $point['distance'],
+            '#direction' => Directions::toHuman($point['direction']),
+            '#lat' => $point['lat'],
+            '#lon' => $point['lon'],
+            '#capacity' => $point['capacity'],
           ];
         }
+
+        if (empty($points)) {
+          continue;
+        }
+
+        usort($points, function ($a, $b) {
+          return $a['#distance'] <=> $b['#distance'];
+        });
+
+        $bikeLocks[$category] = [
+          '#theme' => 'nearby_locks',
+          '#locks' => $points,
+        ];
       }
     }
 
