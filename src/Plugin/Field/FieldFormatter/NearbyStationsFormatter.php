@@ -489,7 +489,7 @@ final class NearbyStationsFormatter extends FormatterBase implements ContainerFa
         'description' => 'Transports à proximité',
         'settings' => [
           'zoomControlPosition' => 'topright',
-          'map_lazy_load' => ['lazy_load' => FALSE],
+          'map_lazy_load' => ['lazy_load' => TRUE],
         ],
         'layers' => [
           'OpenStreetMap' => [
@@ -507,7 +507,8 @@ final class NearbyStationsFormatter extends FormatterBase implements ContainerFa
     $map['settings']['zoomControlPosition'] =
       $map['settings']['zoomControlPosition'] ?? 'topright';
     $map['settings']['map_lazy_load'] =
-      $map['settings']['map_lazy_load'] ?? ['lazy_load' => FALSE];
+      $map['settings']['map_lazy_load'] ?? ['lazy_load' => TRUE];
+    $map['settings']['scrollWheelZoom'] = FALSE;
     $map['settings']['popup'] = TRUE;
 
     return \Drupal::service('leaflet.service')
