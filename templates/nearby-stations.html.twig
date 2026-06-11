@@ -1,6 +1,93 @@
-<p>{{ 'Less than @max_distance metres away:'|t({'@max_distance': max_distance}) }}</p>
-<ul>
-  {%- for stop, routes in near_points -%}
-    <li>{{ 'Routes @routes (station @stop)'|t({'@routes': routes|render, '@stop': stop}) }}</li>
-  {%- endfor -%}
-</ul>
+{#
+/**
+ * @file
+ * Template for nearby stations and bike facilities.
+ *
+ * Available variables:
+ * - metros: metro, subway informations
+ * - trains: train informations
+ * - bus_longs: long-distance bus informations
+ * - bus_shorts: short-distance bus informations
+ * - ferries: ferry or boat informations
+ * - lovelos: bike-sharing informations
+ * - bike_locks: bike lock informations
+ * - max_distance: the maximum distance to the nearby stations
+ * - map: the render array for the map
+ *
+ * @ingroup themeable
+ */
+#}
+{{- attach_library('nearby_transport_formatter/transport') -}}
+<div class="nbs-container">
+  <ul class="nbs-items">
+    {%- if metros is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-metro-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-metro-title">Métro</title><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M2.8 18.26h26.4m-20.68 0V4.54"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3" d="M8.52 30.25v-.76m15.45.76v-.76"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2.57" d="M12.15 1.6h8.21"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M23.97 18.26V4.54"/><rect width="26.38" height="24.29" x="2.81" y="4.54" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" rx="3.15" ry="3.15"/><circle cx="8.52" cy="23.55" r="2.46" fill="currentColor"/><circle cx="23.97" cy="23.55" r="2.46" fill="currentColor"/></svg>
+        <div class="nbs-facilities">
+        {%- for station, routes in metros -%}
+          <p class="nbs-item-row">Métro {{ station }} ({{ routes }})</p>
+        {%- endfor -%}
+        </div>
+      </li>
+    {%- endif -%}
+
+    {%- if trains is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-train-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-train-title">Train</title><path d="M16 15.45V1.5" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><path d="m11.21 20.38-4.36-1.37m18.3 0-4.36 1.37" stroke-linecap="round" stroke="currentColor" stroke-width="2"/><path d="M4.33 29.32h23.34" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><path d="m2.87 30.5 5.72-4.59m14.82 0 5.72 4.58" stroke-linecap="round"/><path d="M16 25.91H6.05a3.1 3.1 0 0 1-3.12-3.12V12.51S4.91 3.06 5.4 2.46a2.5 2.5 0 0 1 1.93-.95h17.34c.75 0 1.43.36 1.93.95.49.6 2.47 10.05 2.47 10.05V22.8a3.1 3.1 0 0 1-3.12 3.12z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><path d="m2.93 12.51 11.17 2.51a9 9 0 0 0 3.8 0l11.17-2.5" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/></svg>
+        <div class="nbs-facilities">Trains {{ trains -}}</div>
+      </li>
+    {%- endif -%}
+
+    {%- if bus_longs is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-bus-long-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-bus-long-title">Car</title><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M18.71 23.4h-5.46m-8.32 0H4.1A3.1 3.1 0 0 1 1 20.3V7.54a3.1 3.1 0 0 1 3.1-3.1h23.76a3.1 3.1 0 0 1 3.1 3.1V20.3a3.1 3.1 0 0 1-3.1 3.1h-.82"/><circle cx="9.09" cy="23.4" r="4.16" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><circle cx="22.88" cy="23.4" r="4.16" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M1 13.13h29.97m-21.88 0v-8.7m13.79 8.7v-8.7"/></svg>
+        <div class="nbs-facilities">
+          {% for station, routes in bus_longs %}
+            <p class="nbs-item-row">Ligne{% if routes|length > 1 %}s{% endif %} {{ routes }} (arrêt {{ station }})</p>
+          {% endfor %}
+        </div>
+      </li>
+    {%- endif -%}
+
+    {%- if bus_shorts is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-bus-short-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-bus-short-title">Bus</title><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M18.71 23.4h-5.46m-8.32 0H4.1A3.1 3.1 0 0 1 1 20.3V7.54a3.1 3.1 0 0 1 3.1-3.1h23.76a3.1 3.1 0 0 1 3.1 3.1V20.3a3.1 3.1 0 0 1-3.1 3.1h-.82"/><circle cx="9.09" cy="23.4" r="4.16" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><circle cx="22.88" cy="23.4" r="4.16" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M1 13.13h29.97m-21.88 0v-8.7m13.79 8.7v-8.7"/></svg>
+        <div class="nbs-facilities">
+          {% for station, routes in bus_shorts %}
+            <p class="nbs-item-row">Ligne{% if routes|length > 1 %}s{% endif %} {{ routes }} (arrêt {{ station }})</p>
+          {% endfor %}
+        </div>
+      </li>
+    {%- endif -%}
+
+    {%- if ferries is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-ferry-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-ferry-title">Traversier</title><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.68" d="m17.14 10.2-4.99-8.86H1.34"/><path fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M1.34 20.54c2.75 0 2.75 1.52 5.5 1.52s2.75-1.52 5.5-1.52 2.76 1.52 5.51 1.52 2.76-1.52 5.52-1.52 2.75 1.52 5.5 1.52M1.35 24.74c2.75 0 2.75 1.53 5.5 1.53s2.75-1.52 5.5-1.52 2.76 1.52 5.51 1.52 2.76-1.52 5.52-1.52 2.75 1.52 5.5 1.52M1.35 28.95c2.75 0 2.75 1.52 5.5 1.52s2.75-1.51 5.5-1.51 2.76 1.51 5.51 1.51 2.76-1.51 5.52-1.51 2.75 1.51 5.5 1.51"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.68" d="M1.34 10.2h27.54l-6.13 10.05"/><path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="2" d="M5.13 1.34v8.86"/></svg>
+        <div class="nbs-facilities">
+          {{- ferries -}}
+        </div>
+      </li>
+    {%- endif -%}
+
+    {%- if lovelos is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-lovelo-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-lovelo-title">Lovélo</title><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M13 20.5a6 6 0 1 1-12 0 6 6 0 0 1 12 0m18 0a6 6 0 1 1-12 0 6 6 0 0 1 12 0"/><path d="M7 20.5 10 10h11.25M7 5.5h4.5m13.5 15-4.5-15h6m0 0h.75c1.24 0 2.25 1 2.25 2.25h0c0 1.24-1 2.25-2.25 2.25h-.75"/></g></svg>
+        <div class="nbs-facilities">
+          {%- for station in lovelos -%}
+            <p class="nbs-item-row">Station Lovélo {{ station }}</p>
+          {%- endfor -%}
+        </div>
+      </li>
+    {%- endif -%}
+
+    {%- if bike_locks is not empty -%}
+      <li class="nbs-item">
+        <svg class="nbs-icon" aria-labelledby="nbs-bike-lock-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><title id="nbs-bike-lock-title">Attache vélo</title><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M3.63 32V14.21a3.84 3.84 0 0 1 3.84-3.83h8.82a3.84 3.84 0 0 1 3.83 3.83V32"/><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M11.88 32V7.15A3.84 3.84 0 0 1 15.7 3.3h8.82a3.84 3.84 0 0 1 3.84 3.84V32"/></svg>
+        <div class="nbs-facilities">{{- bike_locks -}}</div>
+      </li>
+    {%- endif -%}
+  </ul>
+  <div class="nbs-map">  
+    {{- map -}}
+  </div>
+</div>

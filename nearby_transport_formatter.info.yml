@@ -3,9 +3,10 @@ type: module
 description: 'Finds the nearest transport facilities around GPS coordinates'
 package: Fields
 core_version_requirement: ^10 || ^11
-version: "1.0"
+version: "1.1"
 dependencies:
   - drupal:field
   - drupal:geofield
+  - drupal:leaflet
 interface translation project: 'nearby_transport_formatter'
 interface translation server pattern: 'modules/custom/%project/translations/%language.po'

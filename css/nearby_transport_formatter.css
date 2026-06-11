@@ -1,0 +1,53 @@
+.nbs-container {
+  display       : flex;
+  gap           : 1rem;
+  flex-direction: column;
+  align-items   : stretch;
+}
+
+.nbs-items {
+  display             : flex;
+  flex-direction      : column;
+  gap                 : 0.5rem;
+  list-style          : none;
+  padding             : 0;
+  margin-block-start  : 0;
+  margin-block-end    : 0;
+  margin-inline-start : 0;
+  margin-inline-end   : 0;
+  padding-inline-start: 0;
+}
+
+.nbs-item {
+  display    : flex;
+  align-items: center;
+  gap        : 0.5rem;
+}
+
+.nbs-item-row {
+  margin     : 0;
+  line-height: 1.33;
+}
+
+.nbs-icon {
+  flex-shrink: 0;
+}
+
+.nbs-map {
+  flex-grow: 1;
+  height   : 20rem;
+}
+
+@media (min-width: 48rem) {
+  .nbs-container {
+    flex-direction: row;
+  }
+
+  .nbs-items {
+    max-width: 50%;
+  }
+
+  .nbs-map {
+    height: inherit;
+  }
+}

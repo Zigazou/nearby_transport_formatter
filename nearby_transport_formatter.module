@@ -25,13 +25,46 @@ function nearby_transport_formatter_theme($existing, $type, $theme, $path) {
       'variables' => [
         'lat' => NULL,
         'lon' => NULL,
-        'near_points' => [],
+        'metros' => [],
+        'trains' => [],
+        'bus_longs' => [],
+        'bus_shorts' => [],
+        'ferries' => [],
+        'lovelos' => [],
+        'bike_locks' => [],
         'max_distance' => 500,
+        'map' => [],
       ],
     ],
     'nearby_routes' => [
       'variables' => [
         'routes' => [],
+      ],
+    ],
+    'nearby_cycle' => [
+      'variables' => [
+        'station_name' => '',
+        'free' => '',
+        'distance' => '',
+        'direction' => '',
+        'lat' => '',
+        'lon' => '',
+        'capacity' => '',
+      ],
+    ],
+    'nearby_locks' => [
+      'variables' => [
+        'locks' => [],
+      ],
+    ],
+    'nearby_lock' => [
+      'variables' => [
+        'category_name' => '',
+        'distance' => '',
+        'direction' => '',
+        'lat' => '',
+        'lon' => '',
+        'capacity' => '',
       ],
     ],
   ];

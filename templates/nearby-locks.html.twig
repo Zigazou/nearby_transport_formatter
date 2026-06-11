@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Template for nearby bike lock facilities.
+ *
+ * Available variables:
+ * - locks: nearby bike lock facilities indexed by category and facility name
+ *   - (The category)
+ *     - (The facility name)
+ *       - points: the nearby bike lock facilities at this station
+ *         - distance: the distance to the station in metres
+ *         - direction: the direction to the station
+ *         - lat: the latitude of the station
+ *         - lon: the longitude of the station
+ *         - capacity: the capacity of the station
+ *       - distance_min: the minimum distance to the points in metres
+ *       - distance_max: the maximum distance to the points in metres
+ * - max_distance: the maximum distance to the nearby bike lock facilities
+ *
+ * @ingroup themeable
+ */
+#}
+{%- for lock in locks -%}
+  <p class="nbs-item-row">{{ lock }}</p>
+{%- endfor -%}

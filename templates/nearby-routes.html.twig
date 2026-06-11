@@ -1,3 +1,17 @@
+{#
+/**
+ * @file
+ * Template for nearby routes.
+ *
+ * Available variables:
+ * - routes: nearby routes
+ *   - long_name: the long name of the route
+ *   - school: whether the route is a school route
+ * - max_distance: the maximum distance to the nearby routes
+ *
+ * @ingroup themeable
+ */
+#}
 {%- for route in routes -%}
   {{ route.name }}
   {%- if route.school %} (scolaire){%- endif -%}

@@ -12,6 +12,6 @@
         }
     ],
     "require": {
-        "zigazou/transport-nearby": "^0.0.1"
+        "zigazou/transport-nearby": "^0.0.2"
     }
 }
