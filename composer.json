@@ -12,6 +12,7 @@
         }
     ],
     "require": {
-        "zigazou/transport-nearby": "^0.0.2"
+        "zigazou/transport-nearby": "^0.0.2",
+        "drupal/leaflet": "^10.3"
     }
 }
